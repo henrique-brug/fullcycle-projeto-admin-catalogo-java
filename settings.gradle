@@ -1,2 +1,5 @@
 rootProject.name = 'fullcycle-projeto-admin-catalogo-java'
+include 'domain'
+include 'application'
+include 'infrastructure'
 
