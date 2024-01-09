@@ -41,6 +41,38 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         return new Category(CategoryID.unique(), aName, aDescription, isActive, now, now, deletedAt);
     }
 
+    public static Category with(
+            final CategoryID anId,
+            final String name,
+            final String description,
+            final boolean active,
+            final Instant createdAt,
+            final Instant updatedAt,
+            final Instant deletedAt
+    ) {
+        return new Category(
+                anId,
+                name,
+                description,
+                active,
+                createdAt,
+                updatedAt,
+                deletedAt
+        );
+    }
+
+    public static Category with(final Category aCategory) {
+        return with(
+                aCategory.getId(),
+                aCategory.name,
+                aCategory.description,
+                aCategory.isActive(),
+                aCategory.createdAt,
+                aCategory.updatedAt,
+                aCategory.deletedAt
+        );
+    }
+
     public Category activate() {
         this.deletedAt = null;
         this.active = true;
@@ -49,7 +81,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
     }
 
     public Category deactivate() {
-        if(getDeletedAt() == null) {
+        if (getDeletedAt() == null) {
             this.deletedAt = Instant.now();
         }
 
@@ -62,7 +94,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
             final String aName,
             final String aDescription,
             final boolean isActive) {
-        if(isActive) {
+        if (isActive) {
             activate();
         } else {
             deactivate();
@@ -72,6 +104,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         this.updatedAt = Instant.now();
         return this;
     }
+
     @Override
     public void validate(ValidationHandler handler) {
         new CategoryValidator(this, handler).validate();
