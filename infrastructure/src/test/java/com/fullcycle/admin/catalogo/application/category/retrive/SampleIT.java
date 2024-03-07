@@ -1,5 +1,6 @@
-package com.fullcycle.admin.catalogo.application;
-
+package com.fullcycle.admin.catalogo.application.category.retrive;
+/*
+CRIADO APENAS PARA TESTAR SE OS TESTES INTEGRADOS ESTÃO FUNCIONANDO, APÓS FOI COMENTADO!!
 import com.fullcycle.admin.catalogo.IntegrationTest;
 import com.fullcycle.admin.catalogo.application.category.create.CreateCategoryUseCase;
 import com.fullcycle.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
@@ -23,3 +24,4 @@ public class SampleIT {
     }
 
 }
+*/
