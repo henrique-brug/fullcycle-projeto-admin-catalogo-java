@@ -1,4 +1,4 @@
-package com.fullcycle.admin.catalogo.application.category.retrive.list;
+package com.fullcycle.admin.catalogo.application.category.retrieve.list;
 
 import com.fullcycle.admin.catalogo.domain.category.Category;
 import com.fullcycle.admin.catalogo.domain.category.CategoryGateway;

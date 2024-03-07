@@ -1,4 +1,4 @@
-package com.fullcycle.admin.catalogo.application.category.retrive;
+package com.fullcycle.admin.catalogo.application.category.retrieve;
 /*
 CRIADO APENAS PARA TESTAR SE OS TESTES INTEGRADOS ESTÃO FUNCIONANDO, APÓS FOI COMENTADO!!
 import com.fullcycle.admin.catalogo.IntegrationTest;

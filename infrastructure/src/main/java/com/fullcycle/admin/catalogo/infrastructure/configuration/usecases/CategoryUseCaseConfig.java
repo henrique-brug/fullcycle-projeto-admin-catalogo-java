@@ -4,10 +4,10 @@ import com.fullcycle.admin.catalogo.application.category.create.CreateCategoryUs
 import com.fullcycle.admin.catalogo.application.category.create.DefaultCreateCategoryUseCase;
 import com.fullcycle.admin.catalogo.application.category.delete.DefaultDeleteCategoryUseCase;
 import com.fullcycle.admin.catalogo.application.category.delete.DeleteCategoryUseCase;
-import com.fullcycle.admin.catalogo.application.category.retrive.get.DefaultGetCategoryByIdUseCase;
-import com.fullcycle.admin.catalogo.application.category.retrive.get.GetCategoryByIdUseCase;
-import com.fullcycle.admin.catalogo.application.category.retrive.list.DefaultListCategoryUseCase;
-import com.fullcycle.admin.catalogo.application.category.retrive.list.ListCategoryUseCase;
+import com.fullcycle.admin.catalogo.application.category.retrieve.get.DefaultGetCategoryByIdUseCase;
+import com.fullcycle.admin.catalogo.application.category.retrieve.get.GetCategoryByIdUseCase;
+import com.fullcycle.admin.catalogo.application.category.retrieve.list.DefaultListCategoryUseCase;
+import com.fullcycle.admin.catalogo.application.category.retrieve.list.ListCategoryUseCase;
 import com.fullcycle.admin.catalogo.application.category.update.DefaultUpdateCategoryUseCase;
 import com.fullcycle.admin.catalogo.application.category.update.UpdateCategoryUseCase;
 import com.fullcycle.admin.catalogo.domain.category.CategoryGateway;
