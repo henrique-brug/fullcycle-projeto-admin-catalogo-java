@@ -4,7 +4,6 @@ import com.fullcycle.admin.catalogo.IntegrationTest;
 import com.fullcycle.admin.catalogo.domain.category.Category;
 import com.fullcycle.admin.catalogo.domain.category.CategoryGateway;
 import com.fullcycle.admin.catalogo.domain.exceptions.DomainException;
-import com.fullcycle.admin.catalogo.domain.exceptions.NotFoundException;
 import com.fullcycle.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.fullcycle.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Assertions;
@@ -33,14 +32,14 @@ public class UpdateCategoryUseCaseIT {
 
     @Test
     public void givenAValidCommand_whenCallsUpdateCategory_shouldReturnCategoryId() {
-        final var aCategory = Category.newCategory("Film", null, true);
+        final var aCategory =
+                Category.newCategory("Film", null, true);
 
         save(aCategory);
 
         final var expectedName = "Filmes";
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = true;
-
         final var expectedId = aCategory.getId();
 
         final var aCommand = UpdateCategoryCommand.with(
@@ -57,7 +56,8 @@ public class UpdateCategoryUseCaseIT {
         Assertions.assertNotNull(actualOutput);
         Assertions.assertNotNull(actualOutput.id());
 
-        final var actualCategory = categoryRepository.findById(expectedId.getValue()).get();
+        final var actualCategory =
+                categoryRepository.findById(expectedId.getValue()).get();
 
         Assertions.assertEquals(expectedName, actualCategory.getName());
         Assertions.assertEquals(expectedDescription, actualCategory.getDescription());
@@ -187,10 +187,11 @@ public class UpdateCategoryUseCaseIT {
                 expectedIsActive
         );
 
-        /*final var actualException =
-                Assertions.assertThrows(NotFoundException.class, () -> useCase.execute(aCommand));
+        final var actualException =
+                Assertions.assertThrows(DomainException.class, () -> useCase.execute(aCommand));
 
-        Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());*/
+        Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
+        Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
     }
 
     private void save(final Category... aCategory) {

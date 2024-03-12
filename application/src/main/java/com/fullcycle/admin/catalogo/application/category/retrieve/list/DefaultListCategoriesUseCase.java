@@ -6,11 +6,11 @@ import com.fullcycle.admin.catalogo.domain.pagination.Pagination;
 
 import java.util.Objects;
 
-public class DefaultListCategoryUseCase extends ListCategoriesUseCase {
+public class DefaultListCategoriesUseCase extends ListCategoriesUseCase {
 
     private final CategoryGateway categoryGateway;
 
-    public DefaultListCategoryUseCase(final CategoryGateway categoryGateway) {
+    public DefaultListCategoriesUseCase(final CategoryGateway categoryGateway) {
         this.categoryGateway = Objects.requireNonNull(categoryGateway);
     }
 

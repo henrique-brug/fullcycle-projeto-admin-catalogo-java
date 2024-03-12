@@ -15,5 +15,4 @@ public record UpdateCategoryCommand(
     ) {
         return new UpdateCategoryCommand(anId, aName, aDescription, isActive);
     }
-
 }

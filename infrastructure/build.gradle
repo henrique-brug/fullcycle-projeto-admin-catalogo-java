@@ -15,8 +15,8 @@ plugins {
     id 'org.flywaydb.flyway' version '8.5.10'
 }
 
-group = 'com.fullcycle.admin.catalogo.infrastructure'
-version = '1.0-SNAPSHOT'
+group 'com.fullcycle.admin.catalogo.infrastructure'
+version '1.0-SNAPSHOT'
 
 bootJar {
     archiveName 'application.jar'
@@ -31,7 +31,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":application"))
 
-    implementation 'io.vavr:vavr:0.10.4'
+    implementation('io.vavr:vavr:0.10.4')
 
     implementation('mysql:mysql-connector-java')
 

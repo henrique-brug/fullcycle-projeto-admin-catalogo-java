@@ -10,7 +10,7 @@ public interface CategoryGateway {
 
     void deleteById(CategoryID anId);
 
-    Optional<Category> findById(CategoryID anID);
+    Optional<Category> findById(CategoryID anId);
 
     Category update(Category aCategory);
 

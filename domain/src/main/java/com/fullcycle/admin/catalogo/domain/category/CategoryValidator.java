@@ -1,8 +1,8 @@
 package com.fullcycle.admin.catalogo.domain.category;
 
+import com.fullcycle.admin.catalogo.domain.validation.Error;
 import com.fullcycle.admin.catalogo.domain.validation.ValidationHandler;
 import com.fullcycle.admin.catalogo.domain.validation.Validator;
-import com.fullcycle.admin.catalogo.domain.validation.Error;
 
 public class CategoryValidator extends Validator {
 
@@ -17,26 +17,24 @@ public class CategoryValidator extends Validator {
 
     @Override
     public void validate() {
-        checkNameConstrants();
+        checkNameConstraints();
     }
 
-    private void checkNameConstrants() {
+    private void checkNameConstraints() {
         final var name = this.category.getName();
-
-        if(name == null) {
+        if (name == null) {
             this.validationHandler().append(new Error("'name' should not be null"));
             return;
         }
 
-        if(name.isBlank()) {
+        if (name.isBlank()) {
             this.validationHandler().append(new Error("'name' should not be empty"));
             return;
         }
 
         final int length = name.trim().length();
-        if(length > NAME_MAX_LENGTH || length < NAME_MIN_LENGTH) {
-            this.validationHandler().append(new Error("'name' must be betwenn 3 and 255 characteres"));
-            return;
+        if (length > NAME_MAX_LENGTH || length < NAME_MIN_LENGTH) {
+            this.validationHandler().append(new Error("'name' must be between 3 and 255 characters"));
         }
     }
 }

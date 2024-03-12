@@ -26,15 +26,18 @@ public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase {
     public Either<Notification, UpdateCategoryOutput> execute(final UpdateCategoryCommand aCommand) {
         final var anId = CategoryID.from(aCommand.id());
         final var aName = aCommand.name();
-        final var description = aCommand.description();
+        final var aDescription = aCommand.description();
         final var isActive = aCommand.isActive();
 
-        final var aCategory = this.categoryGateway.findById(anId).orElseThrow(notFound(anId));
+        final var aCategory = this.categoryGateway.findById(anId)
+                .orElseThrow(notFound(anId));
 
         final var notification = Notification.create();
-        aCategory.update(aName, description, isActive).validate(notification);
+        aCategory
+                .update(aName, aDescription, isActive)
+                .validate(notification);
 
-        return notification.hasErros() ? Left(notification) : update(aCategory);
+        return notification.hasError() ? Left(notification) : update(aCategory);
     }
 
     private Either<Notification, UpdateCategoryOutput> update(final Category aCategory) {
@@ -43,7 +46,9 @@ public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase {
                 .bimap(Notification::create, UpdateCategoryOutput::from);
     }
 
-    private Supplier<DomainException> notFound(CategoryID anId) {
-        return () -> DomainException.with(new Error("Category with ID %s was not found".formatted(anId.getValue())));
+    private Supplier<DomainException> notFound(final CategoryID anId) {
+        return () -> DomainException.with(
+                new Error("Category with ID %s was not found".formatted(anId.getValue()))
+        );
     }
 }

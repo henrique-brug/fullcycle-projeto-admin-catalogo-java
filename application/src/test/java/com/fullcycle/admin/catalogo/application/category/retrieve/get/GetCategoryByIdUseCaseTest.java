@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class GetCategoryByIdUseCaseTest {
@@ -58,9 +58,9 @@ public class GetCategoryByIdUseCaseTest {
     }
 
     @Test
-    public void givenAInvalidId_whenCallsGetCategory_ReturnNotFound() {
+    public void givenAInvalidId_whenCallsGetCategory_shouldReturnNotFound() {
+        final var expectedErrorMessage = "Category with ID 123 was not found";
         final var expectedId = CategoryID.from("123");
-        final var expectedErrorMessage = "Category with ID %s was not found".formatted(expectedId.getValue());
 
         when(categoryGateway.findById(eq(expectedId)))
                 .thenReturn(Optional.empty());
@@ -74,7 +74,7 @@ public class GetCategoryByIdUseCaseTest {
     }
 
     @Test
-    public void givenAValidId_whenGatewayThrowsExeption_shouldReturnException() {
+    public void givenAValidId_whenGatewayThrowsException_shouldReturnException() {
         final var expectedErrorMessage = "Gateway error";
         final var expectedId = CategoryID.from("123");
 

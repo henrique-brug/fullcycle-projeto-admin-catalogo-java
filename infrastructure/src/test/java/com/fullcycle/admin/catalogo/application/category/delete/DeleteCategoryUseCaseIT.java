@@ -8,13 +8,15 @@ import com.fullcycle.admin.catalogo.infrastructure.category.persistence.Category
 import com.fullcycle.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import java.util.Arrays;
 
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
 
 @IntegrationTest
 public class DeleteCategoryUseCaseIT {
@@ -30,8 +32,7 @@ public class DeleteCategoryUseCaseIT {
 
     @Test
     public void givenAValidId_whenCallsDeleteCategory_shouldBeOK() {
-        final var aCategory =
-                Category.newCategory("Filmes", "A categoria mais assistida", true);
+        final var aCategory = Category.newCategory("Filmes", "A categoria mais assistida", true);
         final var expectedId = aCategory.getId();
 
         save(aCategory);
@@ -55,17 +56,16 @@ public class DeleteCategoryUseCaseIT {
     }
 
     @Test
-    public void givenAValidId_whenGatewayThrowsExeption_shouldReturnException() {
-        final var aCategory =
-                Category.newCategory("Filmes", "A categoria mais assistida", true);
+    public void givenAValidId_whenGatewayThrowsException_shouldReturnException() {
+        final var aCategory = Category.newCategory("Filmes", "A categoria mais assistida", true);
         final var expectedId = aCategory.getId();
 
-        // Não faça nada quando eu chamar o deleteById[
-        doThrow(new IllegalStateException("Gateway error")).when(categoryGateway).deleteById(eq(expectedId));
+        doThrow(new IllegalStateException("Gateway error"))
+                .when(categoryGateway).deleteById(eq(expectedId));
 
         Assertions.assertThrows(IllegalStateException.class, () -> useCase.execute(expectedId.getValue()));
 
-        verify(categoryGateway, times(1)).deleteById(expectedId);
+        Mockito.verify(categoryGateway, times(1)).deleteById(eq(expectedId));
     }
 
     private void save(final Category... aCategory) {

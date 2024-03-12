@@ -8,7 +8,7 @@ import java.util.UUID;
 public class CategoryID extends Identifier {
     private final String value;
 
-    public CategoryID(String value) {
+    private CategoryID(final String value) {
         Objects.requireNonNull(value);
         this.value = value;
     }
@@ -32,8 +32,9 @@ public class CategoryID extends Identifier {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CategoryID that)) return false;
-        return Objects.equals(getValue(), that.getValue());
+        if (o == null || getClass() != o.getClass()) return false;
+        final CategoryID that = (CategoryID) o;
+        return getValue().equals(that.getValue());
     }
 
     @Override

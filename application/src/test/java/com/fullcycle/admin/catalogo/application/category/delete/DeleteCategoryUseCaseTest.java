@@ -1,6 +1,5 @@
 package com.fullcycle.admin.catalogo.application.category.delete;
 
-import com.fullcycle.admin.catalogo.application.category.create.DefaultCreateCategoryUseCase;
 import com.fullcycle.admin.catalogo.domain.category.Category;
 import com.fullcycle.admin.catalogo.domain.category.CategoryGateway;
 import com.fullcycle.admin.catalogo.domain.category.CategoryID;
@@ -32,33 +31,32 @@ public class DeleteCategoryUseCaseTest {
 
     @Test
     public void givenAValidId_whenCallsDeleteCategory_shouldBeOK() {
-        final var aCategory =
-                Category.newCategory("Filmes", "A categoria mais assistida", true);
+        final var aCategory = Category.newCategory("Filmes", "A categoria mais assistida", true);
         final var expectedId = aCategory.getId();
 
-        // Não faça nada quando eu chamar o deleteById[
-        doNothing().when(categoryGateway).deleteById(eq(expectedId));
+        doNothing()
+                .when(categoryGateway).deleteById(eq(expectedId));
 
         Assertions.assertDoesNotThrow(() -> useCase.execute(expectedId.getValue()));
 
-        verify(categoryGateway, times(1)).deleteById(expectedId);
+        Mockito.verify(categoryGateway, times(1)).deleteById(eq(expectedId));
     }
 
     @Test
     public void givenAInvalidId_whenCallsDeleteCategory_shouldBeOK() {
         final var expectedId = CategoryID.from("123");
 
-        doNothing().when(categoryGateway).deleteById(eq(expectedId));
+        doNothing()
+                .when(categoryGateway).deleteById(eq(expectedId));
 
         Assertions.assertDoesNotThrow(() -> useCase.execute(expectedId.getValue()));
 
-        verify(categoryGateway, times(1)).deleteById(expectedId);
+        Mockito.verify(categoryGateway, times(1)).deleteById(eq(expectedId));
     }
 
     @Test
-    public void givenAValidId_whenGatewayThrowsExeption_shouldReturnException() {
-        final var aCategory =
-                Category.newCategory("Filmes", "A categoria mais assistida", true);
+    public void givenAValidId_whenGatewayThrowsException_shouldReturnException() {
+        final var aCategory = Category.newCategory("Filmes", "A categoria mais assistida", true);
         final var expectedId = aCategory.getId();
 
         // Não faça nada quando eu chamar o deleteById[
@@ -66,6 +64,6 @@ public class DeleteCategoryUseCaseTest {
 
         Assertions.assertThrows(IllegalStateException.class, () -> useCase.execute(expectedId.getValue()));
 
-        verify(categoryGateway, times(1)).deleteById(expectedId);
+        Mockito.verify(categoryGateway, times(1)).deleteById(eq(expectedId));
     }
 }

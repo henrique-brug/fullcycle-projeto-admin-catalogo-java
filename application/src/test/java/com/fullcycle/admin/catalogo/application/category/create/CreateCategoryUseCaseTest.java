@@ -1,7 +1,6 @@
 package com.fullcycle.admin.catalogo.application.category.create;
 
 import com.fullcycle.admin.catalogo.domain.category.CategoryGateway;
-import com.fullcycle.admin.catalogo.domain.exceptions.DomainException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,6 +20,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateCategoryUseCaseTest {
+
     @InjectMocks
     private DefaultCreateCategoryUseCase useCase;
 
@@ -35,10 +35,10 @@ public class CreateCategoryUseCaseTest {
         Mockito.reset(categoryGateway);
     }
 
-    // 1. Teste do caminhon feliz
-    // 2. Teste passanhdo uma propriedade inválida (name)
+    // 1. Teste do caminho feliz
+    // 2. Teste passando uma propriedade inválida (name)
     // 3. Teste criando uma categoria inativa
-    // 4. Teste simulando um erro genérico vindo do gateway
+    // 4. Teste simulando um erro generico vindo do gateway
 
     @Test
     public void givenAValidCommand_whenCallsCreateCategory_shouldReturnCategoryId() {
@@ -51,7 +51,6 @@ public class CreateCategoryUseCaseTest {
 
         when(categoryGateway.create(any()))
                 .thenAnswer(returnsFirstArg());
-
 
         final var actualOutput = useCase.execute(aCommand).get();
 

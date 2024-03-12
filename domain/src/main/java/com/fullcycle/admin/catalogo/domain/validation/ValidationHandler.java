@@ -8,16 +8,20 @@ public interface ValidationHandler {
 
     ValidationHandler append(ValidationHandler anHandler);
 
-    ValidationHandler validate(Validation anValidation);
+    ValidationHandler validate(Validation aValidation);
 
     List<Error> getErrors();
 
-    default boolean hasErros() {
+    default boolean hasError() {
         return getErrors() != null && !getErrors().isEmpty();
     }
 
     default Error firstError() {
-        return getErrors() != null && !getErrors().isEmpty() ? getErrors().get(0) : null;
+        if (getErrors() != null && !getErrors().isEmpty()) {
+            return getErrors().get(0);
+        } else {
+            return null;
+        }
     }
 
     public interface Validation {

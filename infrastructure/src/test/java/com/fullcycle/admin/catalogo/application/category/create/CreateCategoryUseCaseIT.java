@@ -9,13 +9,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 
-import java.util.Objects;
-
-import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
 
 @IntegrationTest
 public class CreateCategoryUseCaseIT {
@@ -40,7 +36,6 @@ public class CreateCategoryUseCaseIT {
         final var aCommand =
                 CreateCategoryCommand.with(expectedName, expectedDescription, expectedIsActive);
 
-
         final var actualOutput = useCase.execute(aCommand).get();
 
         Assertions.assertNotNull(actualOutput);
@@ -48,7 +43,8 @@ public class CreateCategoryUseCaseIT {
 
         Assertions.assertEquals(1, categoryRepository.count());
 
-        final var actualCategory = categoryRepository.findById(actualOutput.id().getValue()).get();
+        final var actualCategory =
+                categoryRepository.findById(actualOutput.id().getValue()).get();
 
         Assertions.assertEquals(expectedName, actualCategory.getName());
         Assertions.assertEquals(expectedDescription, actualCategory.getDescription());
@@ -56,7 +52,6 @@ public class CreateCategoryUseCaseIT {
         Assertions.assertNotNull(actualCategory.getCreatedAt());
         Assertions.assertNotNull(actualCategory.getUpdatedAt());
         Assertions.assertNull(actualCategory.getDeletedAt());
-
     }
 
     @Test
@@ -100,7 +95,8 @@ public class CreateCategoryUseCaseIT {
 
         Assertions.assertEquals(1, categoryRepository.count());
 
-        final var actualCategory = categoryRepository.findById(actualOutput.id().getValue()).get();
+        final var actualCategory =
+                categoryRepository.findById(actualOutput.id().getValue()).get();
 
         Assertions.assertEquals(expectedName, actualCategory.getName());
         Assertions.assertEquals(expectedDescription, actualCategory.getDescription());
@@ -121,8 +117,8 @@ public class CreateCategoryUseCaseIT {
         final var aCommand =
                 CreateCategoryCommand.with(expectedName, expectedDescription, expectedIsActive);
 
-        Mockito.doThrow(new IllegalStateException(expectedErrorMessage))
-                .when(categoryGateway).create(any());
+        doThrow(new IllegalStateException(expectedErrorMessage))
+                        .when(categoryGateway).create(any());
 
         final var notification = useCase.execute(aCommand).getLeft();
 

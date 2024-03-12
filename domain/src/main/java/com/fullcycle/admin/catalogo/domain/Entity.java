@@ -5,6 +5,7 @@ import com.fullcycle.admin.catalogo.domain.validation.ValidationHandler;
 import java.util.Objects;
 
 public abstract class Entity<ID extends Identifier> {
+
     protected final ID id;
 
     protected Entity(final ID id) {
@@ -22,7 +23,7 @@ public abstract class Entity<ID extends Identifier> {
     public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Entity<?> entity = (Entity<?>) o;
+        final Entity<?> entity = (Entity<?>) o;
         return getId().equals(entity.getId());
     }
 

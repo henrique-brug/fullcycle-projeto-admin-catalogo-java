@@ -13,6 +13,7 @@ public record CategoryListOutput(
         Instant createdAt,
         Instant deletedAt
 ) {
+
     public static CategoryListOutput from(final Category aCategory) {
         return new CategoryListOutput(
                 aCategory.getId(),

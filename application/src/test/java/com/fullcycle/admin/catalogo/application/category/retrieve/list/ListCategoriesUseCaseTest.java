@@ -19,10 +19,10 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ListCategoryUseCaseTest {
+public class ListCategoriesUseCaseTest {
 
     @InjectMocks
-    private DefaultListCategoryUseCase useCase;
+    private DefaultListCategoriesUseCase useCase;
 
     @Mock
     private CategoryGateway categoryGateway;
@@ -48,13 +48,14 @@ public class ListCategoryUseCaseTest {
         final var aQuery =
                 new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
-        final var aExpectedPagination = new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
+        final var expectedPagination =
+                new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
 
         final var expectedItemsCount = 2;
-        final var expectedResult = aExpectedPagination.map(CategoryListOutput::from);
+        final var expectedResult = expectedPagination.map(CategoryListOutput::from);
 
         when(categoryGateway.findAll(eq(aQuery)))
-                .thenReturn(aExpectedPagination);
+                .thenReturn(expectedPagination);
 
         final var actualResult = useCase.execute(aQuery);
 
@@ -66,7 +67,7 @@ public class ListCategoryUseCaseTest {
     }
 
     @Test
-    public void givenAValidQuery_whenHasNotResults_thenShouldReturnEmptyCategories() {
+    public void givenAValidQuery_whenHasNoResults_thenShouldReturnEmptyCategories() {
         final var categories = List.<Category>of();
 
         final var expectedPage = 0;
@@ -78,13 +79,14 @@ public class ListCategoryUseCaseTest {
         final var aQuery =
                 new CategorySearchQuery(expectedPage, expectedPerPage, expectedTerms, expectedSort, expectedDirection);
 
-        final var aExpectedPagination = new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
+        final var expectedPagination =
+                new Pagination<>(expectedPage, expectedPerPage, categories.size(), categories);
 
         final var expectedItemsCount = 0;
-        final var expectedResult = aExpectedPagination.map(CategoryListOutput::from);
+        final var expectedResult = expectedPagination.map(CategoryListOutput::from);
 
         when(categoryGateway.findAll(eq(aQuery)))
-                .thenReturn(aExpectedPagination);
+                .thenReturn(expectedPagination);
 
         final var actualResult = useCase.execute(aQuery);
 
@@ -96,7 +98,7 @@ public class ListCategoryUseCaseTest {
     }
 
     @Test
-    public void givenAValidQuery_whenGatewayThrowsException_thenShouldReturnException() {
+    public void givenAValidQuery_whenGatewayThrowsException_shouldReturnException() {
         final var expectedPage = 0;
         final var expectedPerPage = 10;
         final var expectedTerms = "";
